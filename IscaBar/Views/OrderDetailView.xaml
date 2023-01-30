@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="iscaBar.Views.OrderDetailView">
+    <StackLayout>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Text="Numero de mesa:"></Label>
+            <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Order.Table}"></Entry>
+
+            <Label Grid.Row="1" Grid.Column="0" Text="Cliente:"></Label>
+            <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Order.Clients}"></Entry>
+
+            <Label Grid.Row="2" Grid.Column="0" Text="Personas en mesa:"></Label>
+            <Entry Grid.Row="2" Grid.Column="1" Text="{Binding Order.Pax}"></Entry>
+
+            <Label Grid.Row="3" Grid.Column="0" Text="Camarero:"></Label>
+            <Entry Grid.Row="3" Grid.Column="1" Text="{Binding Order.Waiter}"></Entry>
+
+            <Label Grid.Row="5" Grid.Column="0" Text="Cuenta:"></Label>
+            <Label Grid.Row="5" Grid.Column="1" Text="{Binding Order.tPrice}"></Label>
+
+        </Grid>
+        <StackLayout Orientation="Horizontal">
+
+            <Button Text="Borrar" Clicked="ClickedDeleteOrder" HorizontalOptions="FillAndExpand"></Button>
+            <Button Text="Guardar" Clicked="ClickedSaveOrder" HorizontalOptions="FillAndExpand"></Button>
+
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>

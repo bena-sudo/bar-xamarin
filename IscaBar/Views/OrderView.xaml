@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="IscaBar.Views.OrderView">
+    <StackLayout>
+        <Grid>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height ="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width ="*"></ColumnDefinition>
+                <ColumnDefinition Width ="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <Label Grid.Row="0" Grid.Column="0" Text="Nº de taula: "></Label>
+            <Entry Grid.Row="0" Grid.Column="1" x:Name="xnum" Text="{Binding num}"></Entry>
+            
+            <Label Grid.Row="1" Grid.Column="0" Text="Nº de comensals: "></Label>
+            <Entry Grid.Row="1" Grid.Column="1" x:Name="xdiners" Text="{Binding diners}"></Entry>
+            
+            <Label Grid.Row="2" Grid.Column="0" Text="Cambrer: "></Label>
+            <Entry Grid.Row="2" Grid.Column="1" x:Name="xwaiter" Text="{Binding waiter}"></Entry>
+            
+            <Label Grid.Row="3" Grid.Column="0" Text="Preu Total: "></Label>
+            <Entry Grid.Row="3" Grid.Column="1" x:Name="xtotal" Text="{Binding total}"></Entry>
+            
+        </Grid>
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Comanda" Clicked="ClickedComanda" HorizontalOptions="FillAndExpand"></Button>
+            <Button Text="Cancelar" Clicked="ClickedCancelar" HorizontalOptions="FillAndExpand"></Button>
+            <Button Text="Eixir" Clicked="ClickedEixir" HorizontalOptions="FillAndExpand"></Button>
+        </StackLayout>
+        <StackLayout>
+            <Label Text="Comandes:" Style="{DynamicResource ListItemStyle}"></Label>
+            <ListView x:Name="MyListView" SelectionMode="Single"
+                      ItemsSource="{Binding Orders}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Id}" Style="{DynamicResource ListItemTextStyle}"/>
+                                <Label Text="{Binding Num}" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <!--<Picker ItemsSource="{Binding LlistaPoblacions}" ItemDisplayBinding="{Binding Nom}" SelectedItem="{Binding Alumne.Poblacio, Mode=TwoWay}"/>-->
+            </ListView>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
