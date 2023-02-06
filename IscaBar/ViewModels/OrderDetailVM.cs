@@ -39,7 +39,7 @@ namespace IscaBar.ViewModels
         {
             try
             {
-                await OrderSDAO.Instance.DeleteAsync(Order.Id);
+                await OrderSDAO.Instance.DeleteAsync(Order);
                 return true;
             }
             catch (Exception ex)
