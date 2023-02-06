@@ -1,5 +1,4 @@
-﻿using iscaBar.Models;
-using IscaBar.Model;
+﻿using IscaBar.Model;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
 using System;

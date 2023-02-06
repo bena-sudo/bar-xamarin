@@ -1,10 +1,9 @@
 ﻿using IscaBar.Model;
-using IscaBar.Models;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
 using System.Collections.Generic;
 
-namespace iscaBar.Models
+namespace IscaBar.Models
 {
     [Table("product")]
     public class Product:ModelBase
