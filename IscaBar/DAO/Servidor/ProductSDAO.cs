@@ -1,5 +1,4 @@
-﻿using iscaBar.Models;
-using IscaBar.Helpers;
+﻿using IscaBar.Helpers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace iscaBar.DAO.Servidor
+namespace IscaBar.DAO.Servidor
 {
     public class ProductSDAO
     {

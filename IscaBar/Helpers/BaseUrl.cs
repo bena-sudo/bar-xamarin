@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace iscaBar.Helpers
+﻿namespace IscaBar.Helpers
 {
     public class BaseUrl
     {

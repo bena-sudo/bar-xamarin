@@ -1,4 +1,4 @@
-﻿using iscaBar.DAO.Servidor;
+﻿using IscaBar.DAO.Servidor;
 using IscaBar.Model;
 using IscaBar.Models;
 using System;
@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 
-namespace iscaBar.ViewModels
+namespace IscaBar.ViewModels
 {
     public class OrdersListVM : ModelBase
     {

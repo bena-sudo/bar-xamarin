@@ -1,10 +1,5 @@
-﻿using iscaBar.Views;
-using IscaBar.DAO.Servidor;
-using IscaBar.Services;
-using IscaBar.Views;
-using System;
+﻿using IscaBar.Views;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace IscaBar
 {

@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace iscaBar.DAO.Servidor
+namespace IscaBar.DAO.Servidor
 {
     public class OrderSDAOC
     {

@@ -1,11 +1,8 @@
-﻿
-using IscaBar.Model;
+﻿using IscaBar.Model;
 using IscaBar.Models;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace iscaBar.Models
 {

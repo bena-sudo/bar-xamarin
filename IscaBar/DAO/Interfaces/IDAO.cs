@@ -1,10 +1,8 @@
-﻿using iscaBar.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace iscaBar.DAO.Interfaces
+namespace IscaBar.DAO.Interfaces
 {
     internal interface IDAO<T>
     {

@@ -1,12 +1,12 @@
-﻿using iscaBar.DAO.Servidor;
+﻿using IscaBar.DAO.Servidor;
 using IscaBar.Model;
 using IscaBar.Models;
 using System;
 using System.Threading.Tasks;
 
-namespace iscaBar.ViewModels
+namespace IscaBar.ViewModels
 {
-    internal class OrderDetailVM:ModelBase
+    internal class OrderDetailVM : ModelBase
     {
         /// <summary>
         /// Crear el objeto Order para acceder a ella desde cualquier metodo
@@ -28,7 +28,7 @@ namespace iscaBar.ViewModels
         /// <param name="order"></param>
         public OrderDetailVM(Order order)
         {
-            Order=order;
+            Order = order;
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace iscaBar.ViewModels
         /// </summary>
         internal void newOrder()
         {
-            Order= new Order();
+            Order = new Order();
         }
         /// <summary>
         /// Conecta con el metodo update del DAO Servidor
@@ -79,7 +79,7 @@ namespace iscaBar.ViewModels
         {
             try
             {
-               Order = await OrderSDAO.Instance.AddAsync(Order);
+                Order = await OrderSDAO.Instance.AddAsync(Order);
                 return true;
             }
             catch (Exception ex)

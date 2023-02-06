@@ -1,11 +1,11 @@
-﻿using iscaBar.ViewModels;
-using IscaBar.Models;
+﻿using IscaBar.Models;
+using IscaBar.ViewModels;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace iscaBar.Views
+namespace IscaBar.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class OrderDetailView : ContentPage
