@@ -11,9 +11,6 @@ namespace IscaBar.ViewModels
 {
     public class OrdersListVM : ModelBase
     {
-        /// <summary>
-        /// Declarar la lista de ordenes que se enlaza a la lista
-        /// </summary>
         private ObservableCollection<Order> _BindingOrders;
         public ObservableCollection<Order> BindingOrders
         {
@@ -24,7 +21,6 @@ namespace IscaBar.ViewModels
                 OnPropertyChanged();
             }
         }
-
 
         /// <summary>
         /// Metodo para actualizar la lista en caso de cambio

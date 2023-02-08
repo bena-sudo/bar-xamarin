@@ -1,36 +1,40 @@
 ﻿using IscaBar.Model;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace IscaBar.Models
 {
     [Table("Category")]
-    internal class Category : ModelBase
+
+    public class Category:ModelBase
     {
-        private int _Id;
+        private int id;
         [PrimaryKey, AutoIncrement]
-        public int Id { get { return _Id; } set { _Id = value; OnPropertyChanged(); } }
-
-        private string _Name;
-        public string Name { get { return _Name; } set { _Name = value; OnPropertyChanged(); } }
-
-        private int _CategoryParentId;
-        [ForeignKeyAttribute(typeof(int))]
-        private int CategoryParentId { get { return _CategoryParentId; } set { _CategoryParentId = value; OnPropertyChanged(); } }
-
-        private Category _CategoryParent;
-        [ManyToOne]
-        public Category CategoryParent { get { return _CategoryParent; } set { _CategoryParent = value; OnPropertyChanged(); } }
-        private List<Category> _Categories;
+        public int Id { get { return id; } set { id = value; OnPropertyChanged(); } }
+        private string name;
+        public string Name { get { return name; } set { name = value; OnPropertyChanged(); } }
+        private string description;
+        public string Description { get { return description; } set { description = value; OnPropertyChanged(); } }
+        private List<Category> subcategories;
         [OneToMany]
-        public List<Category> Categories { get { return _Categories; } set { _Categories = value; OnPropertyChanged(); } }
+        public List<Category> Subcategories { get { return subcategories; } set { subcategories = value; OnPropertyChanged(); } }
+        private Category catFather;
+        private int catFatherId;
+        [ForeignKey(typeof(int))]
+        public int CatFatherId { get { return catFatherId; } set { catFatherId = value; OnPropertyChanged(); } }
+        [ManyToOne]
+        public Category CatFather { get { return catFather; } set { catFather = value; OnPropertyChanged(); } }
 
-        private string _Description;
-        public string Description { get { return _Description; } set { _Description = value; OnPropertyChanged(); } }
-
-        public Category(){
-            Categories= new List<Category>();
+        private List<Product> products;
+        [ManyToMany(typeof(CategoryProduct))]
+        public List<Product> Products { get { return products; } set { products = value; OnPropertyChanged(); } }
+        public Category()
+        {
+            Subcategories = new List<Category>();
         }
+
     }
 }

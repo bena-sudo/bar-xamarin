@@ -4,6 +4,7 @@ using IscaBar.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,22 +26,54 @@ namespace IscaBar.DAO.Servidor
             }
 
         }
-        private static string URL { get; set; }
-        private static Uri URI { get; set; }
 
         public async Task<List<Order>> GetAllAsync()
         {
+            var client = new HttpClient();
             {
-                string URL = Constant.UrlApi + "/restaurapp_app/getOrder";
-                URI = new Uri(URL);
-                HttpClient client = new HttpClient();
-                Task<HttpResponseMessage> response = client.GetAsync(URI);
+                client.BaseAddress = new Uri(BaseUrl.UrlApi);
+
+                HttpResponseMessage response = await client.GetAsync("/restaurapp_app/getOrder");
+                string content = await response.Content.ReadAsStringAsync();
+
                 try
                 {
-                    response.Result.EnsureSuccessStatusCode();
-                    string content = await response.Result.Content.ReadAsStringAsync();
-                    List<Order> list = JsonConvert.DeserializeObject<List<Order>>(content);
-                    return list;
+                    response.EnsureSuccessStatusCode();
+                    var data = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
+                    List<Order> orders = JsonConvert.DeserializeObject<List<Order>>(data["data"].ToString());
+                    return orders;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        public async Task<Order> AddAsync(Order order)
+        {
+            var dic = new { table = order.Table, clients = order.Clients, waiter = order.Waiter };
+            string json = JsonConvert.SerializeObject(dic);
+            var client = new HttpClient();
+            {
+                client.BaseAddress = new Uri(BaseUrl.UrlApi);
+
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync("/restaurapp_app/addOrder", content);
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                try
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var data = JsonConvert.DeserializeObject<dynamic>(responseContent);
+                        //order.Id = data.result.id;
+                        return order;
+                    }
+                    else
+                    {
+                        throw new Exception("Error al crear la orden");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -51,74 +84,55 @@ namespace IscaBar.DAO.Servidor
 
         public async Task<bool> UpdateAsync(Order order)
         {
-            string URL = Constant.UrlApi + "/restaurapp_app/UpdateOrder";
-            Uri URI = new Uri(URL);
-            HttpClient client = new HttpClient();
-            var js = JsonConvert.SerializeObject(order);
-            var httpContent = new StringContent(js, Encoding.UTF8, "application/json");
-            Task<HttpResponseMessage> response = client.PostAsync(URI, httpContent);
-            try
+            var dic = new { id = order.Id, table = order.Table, waiter = order.Waiter, clients = order.Clients };
+            string json = JsonConvert.SerializeObject(dic);
+            var client = new HttpClient();
             {
-                response.Result.EnsureSuccessStatusCode();
-                string content = await response.Result.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<dynamic>(content);
-                if (data == null) throw new Exception("Problemas con Internet");
-                if (data.result.status != Constant.Success)
-                    throw new Exception(data.result);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+                client.BaseAddress = new Uri(BaseUrl.UrlApi);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync("/restaurapp_app/updateOrder/", content);
+                string responseContent = await response.Content.ReadAsStringAsync();
 
-        public async Task<Order> AddAsync(Order order)
-        {
-            string URL = Constant.UrlApi + "restaurapp_app/addTable";
-            Uri URI = new Uri(URL);
-            HttpClient client = new HttpClient();
-            var js = JsonConvert.SerializeObject(order);
-            var httpContent = new StringContent(js, Encoding.UTF8, "application/json");
-            Task<HttpResponseMessage> response = client.PutAsync(URI, httpContent);
-            try
-            {
-                response.Result.EnsureSuccessStatusCode();
-                string content = await response.Result.Content.ReadAsStringAsync();
-                Order list = JsonConvert.DeserializeObject<Order>(content);
-                return list;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                try
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return true;
+                    }
+                    return false;
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                    return false;
+                }
             }
         }
 
         public async Task<bool> DeleteAsync(Order order)
         {
-            string URL = Constant.UrlApi + "restaurapp_app/delOrder";
-            Uri URI = new Uri(URL);
-            HttpClient client = new HttpClient();
-            var js = JsonConvert.SerializeObject(order.Id);
-            var httpContent = new StringContent(js, Encoding.UTF8, "application/json");
-            Task<HttpResponseMessage> response = client.PutAsync(URI, httpContent);
+            var client = new HttpClient();
+            client.BaseAddress = new Uri(BaseUrl.UrlApi);
+
+            int id = order.Id;
+            var content = new StringContent(JsonConvert.SerializeObject(new { id }), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync("/restaurapp_app/delOrder", content);
+            string responseContent = await response.Content.ReadAsStringAsync();
+
             try
             {
-                response.Result.EnsureSuccessStatusCode();
-                string content = await response.Result.Content.ReadAsStringAsync();
-                String list = JsonConvert.DeserializeObject<String>(content);
-                if (list != null)
-                {
-                    return false;
-                }
-                else
+                response.EnsureSuccessStatusCode();
+                if (response.StatusCode == HttpStatusCode.OK)
                 {
                     return true;
                 }
+                return false;
             }
             catch (Exception ex)
             {
                 throw ex;
+
             }
         }
 
@@ -145,7 +159,4 @@ namespace IscaBar.DAO.Servidor
             }
         }
     }
-
 }
-
-

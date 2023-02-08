@@ -22,9 +22,9 @@ namespace IscaBar.Models
         [ManyToMany(typeof(ProdIngre))]
         public List<Ingredient> Ingredients { get { return ingredients; } set { ingredients = value; OnPropertyChanged(); } }
         
-        private List<Categoria> categories;
+        private List<Category> categories;
         [ManyToMany(typeof(CategoryProduct))]
-        public List<Categoria> Categories { get { return categories; } set { categories = value; OnPropertyChanged(); } }
+        public List<Category> Categories { get { return categories; } set { categories = value; OnPropertyChanged(); } }
         [OneToMany]
         public List<Order> Orders { get { return orders; } set { orders = value; OnPropertyChanged(); } }
     }
