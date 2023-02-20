@@ -14,14 +14,27 @@ namespace IscaBar.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CategoryListView : ContentPage
     {
-        CategoryListVM vm = new CategoryListVM();
-        
-        public CategoryListView()
+        CategoryListVM vm;
+
+        private Order _order;
+        public Order Order { get { return _order; } set { _order = value; OnPropertyChanged(); } }
+
+        public CategoryListView(Order order)
         {
             InitializeComponent();
+            vm = new CategoryListVM();
             BindingContext = vm;
+            Order = order;
         }
-     
+
+        public CategoryListView(Order order,Category cat)
+        {
+            InitializeComponent();
+            vm = new CategoryListVM(cat);
+            BindingContext = vm;
+            Order = order;
+        }
+
         protected override async void OnAppearing()
         {
             base.OnAppearing();

@@ -33,7 +33,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Text="Menú del día" Clicked="ClickedMenuDia" HorizontalOptions="StartAndExpand"></Button>
         </StackLayout>
     </StackLayout>
 </ContentPage>

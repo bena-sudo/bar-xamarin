@@ -39,6 +39,7 @@
         </Grid>
         <StackLayout Orientation="Horizontal">
 
+            <Button Text="L" Clicked="Lista" HorizontalOptions="FillAndExpand"></Button>
             <Button Text="Borrar" Clicked="ClickedDeleteOrder" HorizontalOptions="FillAndExpand"></Button>
             <Button Text="Guardar" Clicked="ClickedSaveOrder" HorizontalOptions="FillAndExpand"></Button>
 

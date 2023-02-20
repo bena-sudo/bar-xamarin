@@ -124,5 +124,15 @@ namespace IscaBar.Views
                 await DisplayAlert("Error al guardar orden", ex.Message, "OK");
             }
         }
+
+        private async Task ListaAsync()
+        {
+            await Navigation.PushAsync(new CategoryListView(vm.Order));
+        }
+
+        private void Lista(object sender, EventArgs e)
+        {
+            ListaAsync();
+        }
     }
 }

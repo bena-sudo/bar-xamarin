@@ -28,7 +28,6 @@ namespace IscaBar.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-
             await vm.LoadOrdersAsync();
         }
         /// <summary>

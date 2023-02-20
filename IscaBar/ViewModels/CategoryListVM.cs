@@ -1,11 +1,9 @@
 ﻿using IscaBar.DAO.Servidor;
 using IscaBar.Model;
 using IscaBar.Models;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace IscaBar.ViewModels
@@ -22,6 +20,19 @@ namespace IscaBar.ViewModels
                 OnPropertyChanged();
             }
         }
+        private Category cat;
+        public Category Cat { get { return cat; } set { cat = value; OnPropertyChanged(); } }
+
+        public CategoryListVM()
+        {
+            getCategories();
+        }
+
+        public CategoryListVM(Category cat)
+        {
+            getCategoriesPerCategory(cat);
+            Cat = cat;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
@@ -35,15 +46,22 @@ namespace IscaBar.ViewModels
             getCategories();
         }
 
-        public CategoryListVM()
-        {
-            getCategories();
-        }
-
         private async Task getCategories()
         {
             List<Category> categoriesList = await CategorySDAO.Instance.GetAllAsync();
             BindingCategories = new ObservableCollection<Category>(categoriesList);
+        }
+        private void getCategoriesPerCategory(Category cat)
+        {
+            List<Category> categoriesList = cat.Subcategories;
+            BindingCategories = new ObservableCollection<Category>(categoriesList);
+        }
+
+        public void buscarFills(Category cat)
+        {
+            Cat = cat;
+            ObservableCollection<Category> categories = new ObservableCollection<Category>(cat.Subcategories);
+            BindingCategories = categories;
         }
     }
 }
